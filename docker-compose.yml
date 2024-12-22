@@ -1,0 +1,26 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        UID: "${UID}"
+        GID: "${GID}"
+    volumes:
+      - ./src:/var/www/html
+    ports:
+      - "80:80"
+    working_dir: /var/www/html
+    networks:
+      - laravel
+
+  npm:
+    image: node:20
+    working_dir: /var/www/html
+    volumes:
+      - ./src:/var/www/html
+    networks:
+      - laravel
+
+networks:
+  laravel:
